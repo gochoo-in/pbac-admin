@@ -1,4 +1,7 @@
 import {Router} from 'express'
+import users from '../modules/user/user.routes.js'
+import destination from '../modules/destination/destination.routes.js'
+import cities from '../modules/cities/cities.routes.js'
 const allRoutes = Router()
 
 
@@ -7,14 +10,22 @@ const allRoutes = Router()
 
 const defaultRoutes = [
    
-    // {
-    //   path: '/dummy',
-    //   route: dummy,
-    // },
+    {
+        path: '/users',
+        route: users
+    },
+    {
+        path: '/cities',
+        route: cities
+    },
+    {
+        path: '/destinations',
+        route: destination
+    }
 ]
 
-// defaultRoutes.forEach((route) => {
-//     allRoutes.use(route.path, route.route);
-//   });
+defaultRoutes.forEach((route) => {
+    allRoutes.use(route.path, route.route);
+  });
   
 export default allRoutes
