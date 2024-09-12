@@ -14,6 +14,7 @@ export const createJWT = (payload) => {
     return jwt.sign(payload, jwtSecret, { expiresIn });
   } catch (error) {
     // Handle any errors that occur during JWT creation
+    console.log("error",error)
     return false; // Indicate that JWT creation failed
   }
 };

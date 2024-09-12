@@ -1,23 +1,29 @@
 import User from "../../models/user.js";
 import { StatusCodes } from "http-status-codes";
 import httpFormatter from "../../../utils/formatter.js";
+import { createJWT } from "../../../utils/token.js";
 
 export const addUser = async (req, res) => {
     try {
-        const { name, email, department } = req.body;
+        const { name, department } = req.body;
 
-        if (!name || !email || !department) {
+        if (!name  || !department) {
             return res.status(StatusCodes.BAD_REQUEST).json(httpFormatter({}, 'All fields are required', false));
         }
 
-        const newUser = await User.create({ name, email, department });
+        const newUser = await User.create({ name, department });
 
-        return res.status(StatusCodes.CREATED).json(httpFormatter({ newUser }, 'User added successfully', true));
+        // Wrap the user ID in an object to pass as JWT payload
+        const token = createJWT({ _id: newUser._id.toString() });
+        console.log("token", token);
+
+        return res.status(StatusCodes.CREATED).json(httpFormatter({ newUser, token }, 'User added successfully', true));
     } catch (error) {
         console.error('Error adding user:', error);
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(httpFormatter({}, 'Error adding user', false));
     }
 };
+
 
 export const getUsers = async (req, res) => {
     try {
@@ -32,9 +38,9 @@ export const getUsers = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, email, department } = req.body;
+        const { name, department } = req.body;
 
-        const updatedUser = await User.findByIdAndUpdate(id, { name, email, department }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(id, { name, department }, { new: true });
 
         if (!updatedUser) {
             return res.status(StatusCodes.NOT_FOUND).json(httpFormatter({}, 'User not found', false));

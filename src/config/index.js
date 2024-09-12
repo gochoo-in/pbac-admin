@@ -48,8 +48,23 @@ if (error) {
 
 export default {
   env: envVars.NODE_ENV,
+  // corsOrigin: envVars.CORS_ORIGIN,
+  // appName: envVars.APP_NAME,
   port: envVars.PORT,
   jwtSecret: envVars.COMMON_JWT_KEY,
+  // awsRegion: envVars.AWS_REGION,
+  // awsBucketName: envVars.AWS_BUCKET_NAME,
+  // awsAccessKeyId: envVars.AWS_ACCESS_KEY_ID,
+  // awsSecretAccessKey: envVars.AWS_SECRET_ACCESS_KEY,
+  // jwtAccessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
+  // jwtRefreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
+  // jwtResetPasswordExpirationMinutes: envVars.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
+  // dbHost: envVars.DB_HOST,
+  // dbPassword: envVars.DB_PASSWORD,
+  // dbUser: envVars.DB_USER,
+  // dbName: envVars.DB_NAME,
+  // dbPort: envVars.DB_PORT,
   mongoDb : envVars.MONGO_DB,
-
+  // apiSchemaKey : envVars.COUPON_MICROSERVICE_API_KEY,
+  // apiUrl:envVars.MICROSERVICE_BASE_URL
 };

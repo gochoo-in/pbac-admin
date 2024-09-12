@@ -14,13 +14,30 @@ async function insertCasbinPolicies() {
         const collection = database.collection('casbinPolicies'); 
 
         const policies = [
-            { ptype: 'p', v0: 'IT', v1: '/api/v1/destination', v2: 'POST' },                 
-            { ptype: 'p', v0: 'IT', v1: '/api/v1/destination/*', v2: 'GET' },              
-            { ptype: 'p', v0: 'IT', v1: '/api/v1/destination/*', v2: 'PATCH' },            
-            { ptype: 'p', v0: 'IT', v1: '/api/v1/destination/*', v2: 'DELETE' },          
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/destinations', v2: 'POST' },  
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/destinations', v2: 'GET' },
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/destinations/*', v2: 'PATCH' },
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/destinations/*', v2: 'DELETE' },
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/users', v2: 'GET' },  
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/users', v2: 'POST' },
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/users/*', v2: 'PATCH' },
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/users/*', v2: 'DELETE' },
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/cities', v2: 'GET' },  
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/cities', v2: 'POST' },
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/cities/*', v2: 'PATCH' },
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/cities/*', v2: 'DELETE' },
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/cities/*', v2: 'GET' },  
+            { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/cities/*/activities', v2: 'GET' },
+            { ptype: 'p', v0: '66e2db59527086061fbaffb3', v1: '/api/v1/destinations', v2: 'GET' },
+            { ptype: 'p', v0: '66e2db59527086061fbaffb3', v1: '/api/v1/destinations/*', v2: 'PATCH' },
+            { ptype: 'p', v0: '66e2db59527086061fbaffb3', v1: '/api/v1/destinations/*', v2: 'DELETE' },
+            { ptype: 'p', v0: '66e2db59527086061fbaffb3', v1: '/api/v1/destinations', v2: 'POST' }
 
-            { ptype: 'p', v0: 'owner', v1: '*', v2: '*' },                                   
-        ];
+
+
+
+        
+        ];        
 
         const result = await collection.insertMany(policies);
 
