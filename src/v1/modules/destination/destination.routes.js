@@ -6,10 +6,10 @@ const router = express.Router();
 
 router.post('/', casbinMiddleware, addDestination);
 router.get('/', casbinMiddleware, getAllDestinations); 
-router.get('/:destinationId', getDestinationById); 
-router.get('/:destinationId/activities',  getActivitiesByDestination); 
-router.get('/:destinationId/cities', getCitiesByDestination); 
-router.patch('/:destinationId', updateDestination);
-router.delete('/:destinationId', deleteDestination);
+router.get('/:destinationId', casbinMiddleware, getDestinationById); 
+router.get('/:destinationId/activities', casbinMiddleware,  getActivitiesByDestination); 
+router.get('/:destinationId/cities', casbinMiddleware, getCitiesByDestination); 
+router.patch('/:destinationId', casbinMiddleware, updateDestination);
+router.delete('/:destinationId', casbinMiddleware, deleteDestination);
 
 export default router;

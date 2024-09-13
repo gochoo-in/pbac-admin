@@ -6,15 +6,14 @@ import { createJWT } from "../../../utils/token.js";
 
 export const addUser = async (req, res) => {
     try {
-        const { name, department } = req.body;
+        const { name, department, email } = req.body;
 
-        if (!name  || !department) {
-            return res.status(StatusCodes.BAD_REQUEST).json(httpFormatter({}, 'All fields are required', false));
+        if (!name  || !department || !email) {
+            return res.status(StatusCodes.BAD_REQUEST).json(httpFormatter({}, "User's name, email and department are required", false));
         }
 
-        const newUser = await User.create({ name, department });
+        const newUser = await User.create({ name, department, email });
 
-        // Wrap the user ID in an object to pass as JWT payload
         const token = createJWT({ _id: newUser._id.toString() });
         console.log("token", token);
 
@@ -39,9 +38,9 @@ export const getUsers = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, department } = req.body;
+        const { name, department, email } = req.body;
 
-        const updatedUser = await User.findByIdAndUpdate(id, { name, department }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(id, { name, department, email }, { new: true });
 
         if (!updatedUser) {
             return res.status(StatusCodes.NOT_FOUND).json(httpFormatter({}, 'User not found', false));
