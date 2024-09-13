@@ -3,7 +3,7 @@ import axios from 'axios';
 
 let userId;
 let token;
-
+const superAdminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUzY2U4MmUxNWQ4MzM5MmI4NmYzNDQiLCJpYXQiOjE3MjYyMDU1NzAsImV4cCI6MTcyODc5NzU3MH0.FnuYLn_d9yk2wSK4LtfhmvH7EBnmc5trQnBrUHyvJLo'
 describe('User, Destinations, and Cities API with Casbin Middleware', () => {
 
   it('should add a user and return a token', async () => {
@@ -12,6 +12,7 @@ describe('User, Destinations, and Cities API with Casbin Middleware', () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${superAdminToken}`,
       },
       data: {
         name: 'Test User',
@@ -46,7 +47,7 @@ describe('User, Destinations, and Cities API with Casbin Middleware', () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${superAdminToken}`,
       },
       data: {
         ptype: 'p',
@@ -61,7 +62,7 @@ describe('User, Destinations, and Cities API with Casbin Middleware', () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${superAdminToken}`,
       },
       data: {
         ptype: 'p',
