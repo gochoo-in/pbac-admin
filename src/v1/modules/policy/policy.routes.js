@@ -1,10 +1,14 @@
 import express from 'express';
-import { assignAccess } from './policy.controller.js';
+import { assignAccess, getPolicies, updatePolicy, deletePolicy } from './policy.controller.js';
 
 const router = express.Router();
 
-// Route to assign API access to a user
 router.post('/', assignAccess);
 
+router.get('/', getPolicies);
+
+router.patch('/:id', updatePolicy);
+
+router.delete('/:id', deletePolicy);
 
 export default router;

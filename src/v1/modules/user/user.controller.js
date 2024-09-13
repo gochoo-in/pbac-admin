@@ -1,5 +1,6 @@
 import User from "../../models/user.js";
 import { StatusCodes } from "http-status-codes";
+import casbinpolicy from '../../models/policy.js'; 
 import httpFormatter from "../../../utils/formatter.js";
 import { createJWT } from "../../../utils/token.js";
 
@@ -53,6 +54,7 @@ export const updateUser = async (req, res) => {
     }
 };
 
+
 export const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
@@ -63,9 +65,13 @@ export const deleteUser = async (req, res) => {
             return res.status(StatusCodes.NOT_FOUND).json(httpFormatter({}, 'User not found', false));
         }
 
-        return res.status(StatusCodes.OK).json(httpFormatter({}, 'User deleted successfully', true));
+        const deletedPolicies = await casbinpolicy.deleteMany({ v0: id }); 
+
+        console.log(`Deleted ${deletedPolicies.deletedCount} associated policies for user ID: ${id}`);
+
+        return res.status(StatusCodes.OK).json(httpFormatter({}, 'User and associated policies deleted successfully', true));
     } catch (error) {
-        console.error('Error deleting user:', error);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(httpFormatter({}, 'Error deleting user', false));
+        console.error('Error deleting user and associated policies:', error);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(httpFormatter({}, 'Error deleting user and associated policies', false));
     }
 };
