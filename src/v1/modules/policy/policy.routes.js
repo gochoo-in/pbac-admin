@@ -4,7 +4,7 @@ import { casbinMiddleware } from '../../../utils/casbinMiddleware.js';
 
 const router = express.Router();
 
-router.post('/', casbinMiddleware, assignAccess);
+router.post('/', assignAccess);
 
 router.get('/', casbinMiddleware, getPolicies);
 
