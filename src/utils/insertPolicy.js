@@ -11,7 +11,7 @@ async function insertCasbinPolicies() {
         await client.connect();
 
         const database = client.db('pbac-test'); 
-        const collection = database.collection('casbinPolicies'); 
+        const collection = database.collection('casbinpolicies'); 
 
         const policies = [
             { ptype: 'p', v0: '66e2de99d5ba40712a33c93a', v1: '/api/v1/destinations', v2: 'POST' },  

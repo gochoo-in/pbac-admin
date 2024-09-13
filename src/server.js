@@ -6,8 +6,7 @@ import logger from "./config/logger.js";
 import allV1Routes from './v1/routes/index.js';
 import { connectMongoDB, checkMongoDBDatabaseHealth } from "./config/db/mongo.js";
 import dotenv from 'dotenv';
-
-
+import expressListEndpoints from 'express-list-endpoints';  // Import express-list-endpoints
 
 dotenv.config();
 const { port } = Config;
@@ -17,14 +16,12 @@ const httpServer = http.Server;
 
 app.use(express.json());
 
-
-
-
-
+// API Testing Route
 app.get('/', (req, res) => {
-  res.status(StatusCodes.OK).json("API Testing SuccessFull!!");
+  res.status(StatusCodes.OK).json("API Testing Successful!!");
 });
 
+// Health Check for SQL Database (Assuming you have this function)
 app.get('/health', async (req, res) => {
   const healthStatus = await checkSqlDatabaseHealth();
   if (healthStatus.status === 'healthy') {
@@ -34,6 +31,7 @@ app.get('/health', async (req, res) => {
   }
 });
 
+// Health Check for MongoDB
 app.get('/health/mongo', async (req, res) => {
   const healthStatus = await checkMongoDBDatabaseHealth();
   if (healthStatus.status === 'healthy') {
@@ -43,16 +41,23 @@ app.get('/health/mongo', async (req, res) => {
   }
 });
 
+// List all registered API endpoints dynamically
+app.get('/endpoints', (req, res) => {
+  const endpoints = expressListEndpoints(app);  // Get all registered endpoints
+  res.json({ endpoints });  // Return the endpoints in JSON format
+});
+
+// Register all API v1 routes
 app.use('/api/v1', allV1Routes);
 
-
-// Error handling middleware
+// Error handling middleware for invalid routes
 app.use((req, res, next) => {
   const error = new Error("Invalid request");
   res.status(StatusCodes.NOT_FOUND);
   next(error);
 });
 
+// Centralized error handling
 app.use((error, req, res, next) => {
   if (req.expiredToken) {
     delete req.headers.authorization;
@@ -72,7 +77,7 @@ async function startServer() {
     });
     await connectMongoDB();
 
-    // Error handling for EADDRINUSE
+    // Error handling for EADDRINUSE (port in use)
     server.on("error", (error) => {
       if (error.code === "EADDRINUSE") {
         logger.error(`Port ${port} is already in use. Please choose another port.`);
@@ -92,6 +97,7 @@ async function startServer() {
 // Start the server
 startServer();
 
+// Handle server exit gracefully
 const exitHandler = () => {
   if (httpServer) {
     httpServer.close(() => {
@@ -103,6 +109,7 @@ const exitHandler = () => {
   }
 };
 
+// Error handling for unexpected exceptions and rejections
 const unexpectedErrorHandler = (error) => {
   logger.error(error);
 };

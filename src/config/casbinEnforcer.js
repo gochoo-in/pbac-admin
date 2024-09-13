@@ -12,7 +12,7 @@ export const getCasbinEnforcer = async () => {
     const adapter = await MongoAdapter.newAdapter({
         uri: mongoURI,
         database: 'pbac-test',  
-        collection: 'casbinPolicies',  
+        collection: 'casbinpolicies',  
     });
 
     const modelPath = path.resolve(__dirname, '../utils/model.conf');

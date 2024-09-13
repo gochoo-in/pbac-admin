@@ -2,6 +2,7 @@ import {Router} from 'express'
 import users from '../modules/user/user.routes.js'
 import destination from '../modules/destination/destination.routes.js'
 import cities from '../modules/cities/cities.routes.js'
+import Policy from '../modules/policy/policy.routes.js'
 const allRoutes = Router()
 
 
@@ -21,6 +22,10 @@ const defaultRoutes = [
     {
         path: '/destinations',
         route: destination
+    },
+    {
+        path:'/policy',
+        route:Policy
     }
 ]
 
